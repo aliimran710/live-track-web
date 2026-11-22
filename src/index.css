@@ -1,0 +1,174 @@
+/* Archivo and Martian Mono are loaded from their width-axis builds so the
+   display face can be set expanded and the mono face can be set narrow. */
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/public-sans";
+@import "@fontsource-variable/martian-mono/wdth.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme. Paper canvas, brand navy as ink. */
+  :root {
+    --background: 228 45% 98%;
+    --foreground: 244 100% 11%;
+
+    --surface-1: 0 0% 100%;
+    --surface-2: 228 38% 95%;
+    --surface-3: 228 36% 90%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 244 100% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 244 100% 11%;
+
+    --primary: 244 100% 11%;
+    --primary-foreground: 228 45% 98%;
+
+    --secondary: 228 38% 95%;
+    --secondary-foreground: 244 100% 11%;
+
+    --muted: 228 38% 95%;
+    --muted-foreground: 231 15% 42%;
+
+    --accent: 192 91% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 354 100% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 227 36% 90%;
+    --input: 227 36% 90%;
+    --ring: 192 91% 36%;
+
+    --grid-line: 244 40% 86%;
+
+    /* The six vehicle states as *text*. The fill colours stay vivid in both
+       themes, but on paper they have to be darkened to stay readable. */
+    --ink-move: #0C8F52;
+    --ink-idle: #9A6500;
+    --ink-stop: #CC1F33;
+    --ink-offline: #41508C;
+    --ink-disabled: #7E22CE;
+    --ink-total: #0B7AAF;
+
+    --radius: 4px;
+  }
+
+  /* Dark theme. Brand navy canvas, deep blue-violet elevation steps. */
+  .dark {
+    --background: 244 100% 11%;
+    --foreground: 228 45% 98%;
+
+    --surface-1: 244 90% 15%;
+    --surface-2: 244 88% 17%;
+    --surface-3: 245 83% 26%;
+
+    --card: 244 90% 15%;
+    --card-foreground: 228 45% 98%;
+    --popover: 244 90% 15%;
+    --popover-foreground: 228 45% 98%;
+
+    --primary: 244 100% 11%;
+    --primary-foreground: 228 45% 98%;
+
+    --secondary: 244 88% 17%;
+    --secondary-foreground: 228 45% 98%;
+
+    --muted: 244 88% 17%;
+    --muted-foreground: 231 27% 65%;
+
+    --accent: 188 86% 53%;
+    --accent-foreground: 244 100% 11%;
+
+    --destructive: 354 100% 65%;
+    --destructive-foreground: 244 100% 11%;
+
+    --border: 245 55% 20%;
+    --input: 245 55% 20%;
+    --ring: 188 86% 53%;
+
+    --grid-line: 245 60% 24%;
+
+    /* On the navy canvas the fill colours are already the readable ones. */
+    --ink-move: #16D97E;
+    --ink-idle: #FFB020;
+    --ink-stop: #FF6B78;
+    --ink-offline: #8E9BD6;
+    --ink-disabled: #C084FC;
+    --ink-total: #38BDF8;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-synthesis-weight: none;
+    overflow-x: hidden;
+  }
+
+  /* Display face set expanded; this is the page's voice. */
+  h1, h2, h3, .font-display {
+    font-family: theme("fontFamily.display");
+    font-variation-settings: "wdth" 115;
+    @apply tracking-display;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Lenis drives scrolling; it sets these on <html>. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  /* Mono micro-label used for waypoints, coordinates and data captions. */
+  .eyebrow {
+    @apply font-mono text-[0.625rem] uppercase tracking-eyebrow text-muted-foreground;
+    font-variation-settings: "wdth" 87;
+  }
+
+  /* Latitude/longitude graticule. The page's only background texture. */
+  .graticule {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid-line) / 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.55) 1px, transparent 1px);
+    background-size: 88px 88px;
+  }
+
+  .graticule-fine {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid-line) / 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.35) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
